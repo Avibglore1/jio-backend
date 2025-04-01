@@ -30,6 +30,9 @@ app.use("/api/auth", authRouter);
 app.use("/api/user", wishlistRouter);
 app.use("/api/video", VideoRouter);
 app.use("/api/payment", PaymentRouter);
+app.use("/",function(req,res){
+  res.status(200).send("Hello from server");
+})
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
