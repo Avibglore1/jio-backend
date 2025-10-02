@@ -65,4 +65,4 @@ userSchema.post("save", function () {
     this.__v = undefined;
 })
 // final touch point
-export const UserModel = mongoose.model('User', userSchema);
+export const User = mongoose.model('User', userSchema);

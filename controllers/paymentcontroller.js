@@ -1,5 +1,5 @@
 import Razorpay from "razorpay";
-import {UserModel} from "../Model/UserModel.js";
+import {User} from "../Model/UserModel.js";
 
 const razorpay = new Razorpay({
     key_id: process.env.RAZORPAY_PUBLIC_KEY,
@@ -29,12 +29,12 @@ export const getPaymentController = async (req, res) =>{
 export const updatePremiumAccessController = async(req,res) =>{
     try{
         const email = req.body.email;
-        const user = await UserModel.findOne({email: email});
+        const user = await User.findOne({email: email});
         if(!user){
             return res.status(404).json({message: 'User not found'});
         }
         user.premiumAccess = true;
-        await UserModel.findOneAndUpdate(
+        await User.findOneAndUpdate(
             {email: email},
             { $set: { isPremium: true } },
             { new: true }

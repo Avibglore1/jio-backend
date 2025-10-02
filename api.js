@@ -4,7 +4,13 @@ const app = express();
 import dotenv from "dotenv"
 import cookieParser from "cookie-parser";
 import cors from 'cors';
-app.use(cors());
+app.use(
+  cors({
+    origin: "https://jio-frontend-rney-biate7xn1.vercel.app/", // Frontend URL
+    methods: "GET,POST,PUT,DELETE",
+    credentials: true, // Allow cookies, authorization headers, etc.
+  })
+);
 
 
 

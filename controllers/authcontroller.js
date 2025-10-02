@@ -1,4 +1,4 @@
-import {UserModel} from "../Model/UserModel.js";
+import {User} from "../Model/UserModel.js";
 import {emailSender} from "../utility/DynamicEmailSender.js";
 import jwt from 'jsonwebtoken';
 import util from 'util';
@@ -16,7 +16,7 @@ export const forgetPasswordHandler = async(req,res)=>{
             })
         }
 
-        const user = await UserModel.findOne({email: req.body.email});
+        const user = await User.findOne({email: req.body.email});
         if(user == null){
             return res.status(404).json({
                 status: 'failure',
@@ -61,7 +61,7 @@ export const resetPasswordHandler= async(req, res)=>{
                     message: 'invalid request'
                 });
             }
-        const user = await UserModel.findOne({email: req.body.email});
+        const user = await User.findOne({email: req.body.email});
         if (user == null){
             return res.status(404).json({
                 status: 'failure',
@@ -113,14 +113,14 @@ export const signupHandler = async(req, res) =>{
                 status: 'failure'
             });
         }
-        const user = await UserModel.findOne({email: userObject.email});
+        const user = await User.findOne({email: userObject.email});
         if(user){
             return res.status(400).json({
                 message: 'user already exist',
                 status: 'failure'
             })
         }
-        const newUser = await UserModel.create(userObject);
+        const newUser = await User.create(userObject);
         res.status(200).json({
             message: 'user created',
             status: 'success',
@@ -140,7 +140,7 @@ export const signupHandler = async(req, res) =>{
 export const  loginHandler = async(req,res) =>{
     try{
         const {email, password} = req.body;
-        const user = await UserModel.findOne({email: email});
+        const user = await User.findOne({email: email});
         if(!user){
             return res.status(404).json({
                 message: 'invalid email or password',
