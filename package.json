@@ -15,7 +15,7 @@
   "main": "api.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon server.js"
+    "dev": "nodemon api.js"
   },
   "keywords": [],
   "author": "",
