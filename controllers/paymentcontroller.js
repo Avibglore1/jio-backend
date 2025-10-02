@@ -1,48 +1,52 @@
-import Razorpay from  "razorpay";
-import User from "./../models/User.js"
+const Razorpay = require("razorpay");
+const UserModel = require("../Model/UserModel");
 
 const razorpay = new Razorpay({
-    key_id: process.env.RAZORPAY_KEY_ID,
-    key_secret: process.env.RAZORPAY_KEY_SECRET,
-});
-
+    key_id: process.env.RAZORPAY_PUBLIC_KEY,
+    key_secret: process.env.RAZORPAY_PRIVATE_KEY
+})
 // create the order so that user can checkout on frontend 
-export const getPaymentController = async (req, res) => {
-    console.log("req", req);
-    try {
+const getPaymentController = async (req, res) =>{
+    try{
         const data = await razorpay.orders.create({
             amount: req.body.amount * 100,
-            currency: "INR",
-            receipt: "Receipt_Id" + Date.now(),
+            currency: 'INR',
+            receipt: 'Recipt_Id' + Date.now()
         });
-        res.json({
+        res.status(200).json({
             amount: data.amount,
-            orderId: data.id,
+            orderId: data.id 
         });
-    } catch (err) {
-        console.log(err);
+    }catch(err){
+        res.status(500).json({
+            message: err.message,
+            status: 'failure'
+        })
     }
-};
+}
 
 // updation of status of premium access
-export const updatePremiumAccessController = async (req, res) => {
-    try {
-        const { email } = req.body;
-
-        const updatedUser = await User.findOneAndUpdate(
-            { email },
-            { $set: { isPremium: true } },
-            { new: true } // Returns the updated document
-        );
-
-        if (!updatedUser) {
-            return res.status(404).json({ error: "User not found" });
+const updatePremiumAccessController = async(req,res) =>{
+    try{
+        const email = req.body.email;
+        const user = await UserModel.findOne({email: email});
+        if(!user){
+            return res.status(404).json({message: 'User not found'});
         }
+        user.premiumAccess = true;
+        await UserModel.findOneAndUpdate(
+            {email: email},
+            { $set: { isPremium: true } },
+            { new: true }
+        );
+        res.json({ message: { isPremium: true } });
+    }catch(err){
+        console.log('err', err);
+        res.status(500).json({
+            status: 'failure',
+            message: 'Internal Server Error'
+        })
+    };
+}
 
-        res.json({ message: { isPremium: updatedUser.isPremium } });
-    } catch (err) {
-        console.error(err);
-        res.status(500).json({ error: "Internal Server Error" });
-    }
-};
-
+module.exports = {getPaymentController, updatePremiumAccessController}

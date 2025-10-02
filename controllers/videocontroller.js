@@ -1,7 +1,7 @@
-import fs from "fs";
-import path from "path";
+const fs = require("fs");
+const path = require("path");
 
-export const getAllVideos = async (req, res) => {
+const getAllVideos = async (req, res) => {
     try {
         const videoDirectory = path.join(__dirname, "..", "videos");
         const files = fs.readdirSync(videoDirectory);
@@ -28,8 +28,7 @@ export const getAllVideos = async (req, res) => {
     }
 };
 
-
-export const getVideoStream = async (req, res) => {
+const getVideoStream = async (req, res) => {
     try {
         let id = req.query.id; // ID of video to be streamed
         // Check if the header includes range
@@ -68,3 +67,7 @@ export const getVideoStream = async (req, res) => {
     }
 };
 
+module.exports = {
+    getAllVideos,
+    getVideoStream,
+};
