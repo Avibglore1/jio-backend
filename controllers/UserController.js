@@ -1,4 +1,4 @@
-const getCurrentUser = async (req, res) =>{
+export const getCurrentUser = async (req, res) =>{
     try{
         const userId = req.userId;
         const { _id, name, email, createdAt, wishlist, isPremium } = await UserModel.findById(userId);
@@ -21,7 +21,7 @@ const getCurrentUser = async (req, res) =>{
     }
 }
 
-const getUserWishlist = async (req, res) =>{
+export const getUserWishlist = async (req, res) =>{
     try{
         const userId = req.userId;
         const user = await UserModel.findById(userId);
@@ -37,7 +37,7 @@ const getUserWishlist = async (req, res) =>{
     }
 }
 
-const addToWishlist = async (req, res) =>{
+export const addToWishlist = async (req, res) =>{
     try{
         const userId = req.userId;
         const { id} = req.body;
@@ -79,4 +79,3 @@ const addToWishlist = async (req, res) =>{
     }
 }
 
-module.exports = {getCurrentUser, getUserWishlist, addToWishlist};

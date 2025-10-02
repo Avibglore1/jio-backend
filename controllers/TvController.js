@@ -1,6 +1,6 @@
-const { tmdbApi, TMDB_ENDPOINT } = require("../services/tmdb.services.js");
+import { tmdbApi, TMDB_ENDPOINT } from "../services/tmdb.services.js";
 
-const getActionTvShows = async(req,res) =>{
+export const getActionTvShows = async(req,res) =>{
     try{
         const data = await tmdbApi.get(TMDB_ENDPOINT.fetchActionTvShows);
         data.data.results.forEach((item)=>{
@@ -19,7 +19,7 @@ const getActionTvShows = async(req,res) =>{
     }
 }
 
-const getComedyTvShows = async (req, res) => {
+export const getComedyTvShows = async (req, res) => {
     try{
         const data = await tmdbApi.get(TMDB_ENDPOINT.fetchComedyTvShows);
         data.data.results.forEach((item)=>{
@@ -37,7 +37,7 @@ const getComedyTvShows = async (req, res) => {
     }
 }
 
-const getMysteryTvShows = async (req, res) =>{
+export const getMysteryTvShows = async (req, res) =>{
     try{
         const data = await tmdbApi.get(TMDB_ENDPOINT.fetchMysteryTvShows);
         data.data.results.forEach((item)=>{
@@ -55,7 +55,7 @@ const getMysteryTvShows = async (req, res) =>{
     }
 }
 
-const getDramaTvShows = async (req, res) =>{
+export const getDramaTvShows = async (req, res) =>{
     try{
         const data = await tmdbApi.get(TMDB_ENDPOINT.fetchDramaTvShows);
         data.data.results.forEach((item)=>{
@@ -72,7 +72,7 @@ const getDramaTvShows = async (req, res) =>{
         })
     }
 }
-const getCrimeTvShows = async (req, res) =>{
+export const getCrimeTvShows = async (req, res) =>{
     try{
         const data = await tmdbApi.get(TMDB_ENDPOINT.fetchCrimeTvShows);
         data.data.results.forEach((item)=>{
@@ -90,7 +90,7 @@ const getCrimeTvShows = async (req, res) =>{
     }
 }
 
-const getTvShowDetails = async (req, res) =>{
+export const getTvShowDetails = async (req, res) =>{
     try{
         const {id} = req.query;
         if(!id) throw new Error ('Video Id is not defined');
@@ -108,11 +108,3 @@ const getTvShowDetails = async (req, res) =>{
     };
 }
 
-module.exports = {
-    getActionTvShows,
-    getComedyTvShows,
-    getMysteryTvShows,
-    getDramaTvShows,
-    getCrimeTvShows,
-    getTvShowDetails,
-};

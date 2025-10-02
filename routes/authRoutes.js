@@ -1,6 +1,7 @@
 import express from "express";
-const { register, verify,  login, logout, forgotPassword, resetPassword } = 
-require ("./../controllers/authcontroller.js");
+import  { register, verify,  login, logout, forgotPassword, resetPassword } from 
+"./../controllers/authcontroller.js";
+
 
 const router = express.Router();
 

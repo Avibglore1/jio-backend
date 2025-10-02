@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const wishlistItemSchema = new mongoose.Schema({
     poster_path : {type: String, required: true},
@@ -65,5 +65,4 @@ userSchema.post("save", function () {
     this.__v = undefined;
 })
 // final touch point
-const UserModel = mongoose.model('User', userSchema);
-module.exports = UserModel;
+export const UserModel = mongoose.model('User', userSchema);

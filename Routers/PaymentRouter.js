@@ -1,12 +1,10 @@
-
-const express = require("express");
-const PaymentRouter = express.Router();
-const {
+import express from "express"
+export const PaymentRouter = express.Router();
+import {
     getPaymentController,
     updatePremiumAccessController,
-} = require("../controllers/PaymentController");
+} from "../controllers/PaymentController.js";
 
 PaymentRouter.post("/order", getPaymentController);
 PaymentRouter.patch("/update-premium-access", updatePremiumAccessController);
 
-module.exports = PaymentRouter;

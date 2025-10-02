@@ -1,6 +1,6 @@
-const { tmdbApi, TMDB_ENDPOINT } = require("../services/tmdb.services.js");
+import { tmdbApi, TMDB_ENDPOINT } from "../services/tmdb.services.js";
 
-const getActionMovies = async (req, res) =>{
+export const getActionMovies = async (req, res) =>{
     try{
         const data = await tmdbApi.get(TMDB_ENDPOINT.fetchActionMovies);
         res.status(200).json({
@@ -15,7 +15,7 @@ const getActionMovies = async (req, res) =>{
     }
 }
 
-const getComedyMovies = async (req, res) =>{
+export const getComedyMovies = async (req, res) =>{
     try{
         const data = await tmdbApi.get(TMDB_ENDPOINT.fetchComedyMovies);
         res.status(200).json({
@@ -30,7 +30,7 @@ const getComedyMovies = async (req, res) =>{
     }
 }
 
-const getHorrorMovies = async (req, res) =>{
+export const getHorrorMovies = async (req, res) =>{
     try{
         const data = await tmdbApi.get(TMDB_ENDPOINT.fetchHorrorMovies);
 
@@ -47,7 +47,7 @@ const getHorrorMovies = async (req, res) =>{
     }
 }
 
-const getRomanceMovies = async (req, res) =>{
+export const getRomanceMovies = async (req, res) =>{
     try{
         const data = await tmdbApi.get(TMDB_ENDPOINT.fetchRomanceMovies);
 
@@ -63,7 +63,7 @@ const getRomanceMovies = async (req, res) =>{
     }
 }
 
-const getAnimeMovies = async (req, res) =>{
+export const getAnimeMovies = async (req, res) =>{
     try{
         const data = await tmdbApi.get(TMDB_ENDPOINT.fetchAnimeMovies);
 
@@ -80,7 +80,7 @@ const getAnimeMovies = async (req, res) =>{
 }
 
 
-const getMovieDetails = async (req, res) =>{
+export const getMovieDetails = async (req, res) =>{
     try{
         const { id } = req.query;
         if (!id) throw new Error("Video Id is not defined.");
@@ -98,11 +98,3 @@ const getMovieDetails = async (req, res) =>{
     }
 }
 
-module.exports = {
-    getActionMovies,
-    getMovieDetails,
-    getComedyMovies,
-    getHorrorMovies,
-    getRomanceMovies,
-    getAnimeMovies,
-};

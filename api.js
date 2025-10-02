@@ -1,9 +1,9 @@
-const mongoose = require("mongoose");
-const express = require("express");
+import mongoose from "mongoose";
+import express from "express";
 const app = express();
-const dotenv = require("dotenv")
-const cookieParser = require("cookie-parser");
-const cors = require('cors');
+import dotenv from "dotenv"
+import cookieParser from "cookie-parser";
+import cors from 'cors';
 app.use(cors());
 
 
@@ -23,13 +23,13 @@ mongoose.connect(dbLink).then(function(connection){
 app.use(express.json());
 app.use(cookieParser());
 
-const AuthRouter = require("./Routers/AuthRouter");
-const MovieRouter = require("./Routers/MovieRouter");
-const TvShowsRouter = require("./Routers/TvRouter");
-const DiscoverRouter = require("./Routers/DiscoverRouter");
-const UserRouter = require("./Routers/UserRouter");
-const VideoRouter = require("./Routers/VideoRouter");
-const PaymentRouter = require("./Routers/PaymentRouter");
+import {AuthRouter} from "./Routers/AuthRouter.js";
+import {MovieRouter} from "./Routers/MovieRouter.js";
+import {TvShowsRouter} from "./Routers/TvRouter.js";
+import {DiscoverRouter} from "./Routers/DiscoverRouter.js";
+import {UserRouter} from "./Routers/UserRouter.js";
+import {VideoRouter} from "./Routers/VideoRouter.js";
+import {PaymentRouter} from "./Routers/PaymentRouter.js";
 
 app.use("/api/auth", AuthRouter);
 app.use("/api/movies", MovieRouter);

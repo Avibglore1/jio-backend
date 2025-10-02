@@ -1,7 +1,7 @@
-const dotenv = require("dotenv");
-const nodemailer = require("nodemailer");
+import dotenv from "dotenv";
+import nodemailer from "nodemailer";
 dotenv.config();
-const fs = require("fs");
+import fs from "fs";
 
 
 async function updateTemplateHelper(templatePath, toReplaceObject) {
@@ -13,7 +13,7 @@ async function updateTemplateHelper(templatePath, toReplaceObject) {
     return templateContent;
 }
 
-async function emailSender(templatePath, recieverEmail, toReplaceObject) {
+export const emailSender = async(templatePath, recieverEmail, toReplaceObject)=> {
     try {
         const content = await updateTemplateHelper(templatePath, toReplaceObject);
         // thorugh which service you have to send the mail 
@@ -40,4 +40,3 @@ async function emailSender(templatePath, recieverEmail, toReplaceObject) {
         console.log("email not send because of the errro", err);
     }
 }
-module.exports = emailSender;

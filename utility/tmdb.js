@@ -7,7 +7,7 @@ const headers = {
 const imageBASEURL = "https://image.tmdb.org/t/p/original/";
 const tmdbBASEURL = "https://api.themoviedb.org/3/";
 // ahmarae backend yah data leke aayega 
-const TMDB_ENDPOINT = {
+export const TMDB_ENDPOINT = {
     //discover
     fetchNowPlaying: "/movie/now_playing",
     fetchTrending: `/trending/all/week`,
@@ -35,7 +35,7 @@ const TMDB_ENDPOINT = {
 };
 
 
-const tmdbApi = {
+export const tmdbApi = {
     get: async (endpoint) => {
         const url = tmdbBASEURL + endpoint;
         const response = await fetch(url, { method: 'GET', headers: headers })
@@ -44,6 +44,3 @@ const tmdbApi = {
     }
 }
 
-module.exports={
-    tmdbApi, TMDB_ENDPOINT, 
-}

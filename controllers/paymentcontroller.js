@@ -1,12 +1,12 @@
-const Razorpay = require("razorpay");
-const UserModel = require("../Model/UserModel");
+import Razorpay from "razorpay";
+import {UserModel} from "../Model/UserModel.js";
 
 const razorpay = new Razorpay({
     key_id: process.env.RAZORPAY_PUBLIC_KEY,
     key_secret: process.env.RAZORPAY_PRIVATE_KEY
 })
 // create the order so that user can checkout on frontend 
-const getPaymentController = async (req, res) =>{
+export const getPaymentController = async (req, res) =>{
     try{
         const data = await razorpay.orders.create({
             amount: req.body.amount * 100,
@@ -26,7 +26,7 @@ const getPaymentController = async (req, res) =>{
 }
 
 // updation of status of premium access
-const updatePremiumAccessController = async(req,res) =>{
+export const updatePremiumAccessController = async(req,res) =>{
     try{
         const email = req.body.email;
         const user = await UserModel.findOne({email: email});
@@ -48,5 +48,3 @@ const updatePremiumAccessController = async(req,res) =>{
         })
     };
 }
-
-module.exports = {getPaymentController, updatePremiumAccessController}

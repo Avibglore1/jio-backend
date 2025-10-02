@@ -33,7 +33,7 @@ const headers = {
 const imageBASEURL = "https://image.tmdb.org/t/p/original/";
 const tmdbBASEURL = "https://api.themoviedb.org/3/";
 
-const TMDB_ENDPOINT = {
+export const TMDB_ENDPOINT = {
     //discover
     fetchNowPlaying: "/movie/now_playing",
     fetchTrending: `/trending/all/week`,
@@ -60,7 +60,7 @@ const TMDB_ENDPOINT = {
     fetchTvShowDetails: (id) => `/tv/${id}`,
 };
 
-const tmdbApi = {
+export const tmdbApi = {
     get: async (endpoint) => {
         const cacheKey = `tmdb_${endpoint}`;
 
@@ -113,6 +113,3 @@ const tmdbApi = {
     }
     }
 
-module.exports = {
-    tmdbApi, TMDB_ENDPOINT,
-}

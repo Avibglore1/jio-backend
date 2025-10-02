@@ -1,12 +1,13 @@
-const UserModel = require("../Model/UserModel");
-const emailSender = require("../utility/DynamicEmailSender");
-const jwt = require('jsonwebtoken');
-const promisify = require('util').promisify;
-const promisifiedJWTSign = promisify(jwt.sign);
-const promisifiedJWTVerify = promisify(jwt.verify);
+import {UserModel} from "../Model/UserModel.js";
+import {emailSender} from "../utility/DynamicEmailSender.js";
+import jwt from 'jsonwebtoken';
+import util from 'util';
+
+const promisifiedJWTSign = util.promisify(jwt.sign);
+const promisifiedJWTVerify = util.promisify(jwt.verify);
 const {JWT_SECRET} = process.env;
 
-async function forgetPasswordHandler(req,res){
+export const forgetPasswordHandler = async(req,res)=>{
     try{
         if(req.body.email == undefined){
             return res.status(401).json({
@@ -50,7 +51,7 @@ async function forgetPasswordHandler(req,res){
     }
 }
 
-async function resetPasswordHandler(req, res){
+export const resetPasswordHandler= async(req, res)=>{
     try{
         let resetDetails = req.body;
         if(!resetDetails.password || !resetDetails.confirmPassword || !resetDetails.otp
@@ -103,7 +104,7 @@ async function resetPasswordHandler(req, res){
     }
 }
 
-async function signupHandler(req, res){
+export const signupHandler = async(req, res) =>{
     try{
         const userObject = req.body;
         if(!userObject.email || !userObject.password){
@@ -136,7 +137,7 @@ async function signupHandler(req, res){
     }
 }
 
-async function loginHandler(req,res){
+export const  loginHandler = async(req,res) =>{
     try{
         const {email, password} = req.body;
         const user = await UserModel.findOne({email: email});
@@ -173,7 +174,7 @@ async function loginHandler(req,res){
     }
 }
 
-const logoutController = function(req,res){
+export const logoutController = (req,res) =>{
     res.cookie('JWT', '', {
         maxAge: Date.now(),
         httpOnly: true,
@@ -191,7 +192,7 @@ const otpGenerator = function(){
     return Math.floor(100000 + Math.random() * 900000)
 }
 
-const protectRouteMiddleWare = async function (req, res, next) {
+export const protectRouteMiddleWare = async(req, res, next) =>{
     try{
         let jwttoken = req.cookie.JWT;
         if(!jwttoken) throw new Error('Unauthorized');
@@ -211,12 +212,3 @@ const protectRouteMiddleWare = async function (req, res, next) {
     }
 }
 
-module.exports = {
-    forgetPasswordHandler,
-    resetPasswordHandler,
-    signupHandler,
-    loginHandler,
-    logoutController,
-    protectRouteMiddleWare,
-
-}

@@ -1,11 +1,12 @@
-const express = require("express");
-const VideoRouter = express.Router();
-const {
-    getVideoStream,
-    getAllVideos,
-} = require("../controllers/VideoController.js");
+import express from "express";
+export const UserRouter = express.Router();
+import {
+    getCurrentUser,
+    getUserWishlist,
+    addToWishlist
+} from "./../controllers/UserController.js";
 /***********routes**************/
 
-VideoRouter.get("/", getAllVideos);
-VideoRouter.get("/watch", getVideoStream);
-module.exports = VideoRouter;
+UserRouter.get("/", getCurrentUser);
+UserRouter.get("/getWishlist", getUserWishlist);
+UserRouter.get("/addToWishlist", addToWishlist);
