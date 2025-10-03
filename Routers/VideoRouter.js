@@ -3,7 +3,7 @@ export const VideoRouter = express.Router();
 import {
     getVideoStream,
     getAllVideos,
-} from "../controllers/VideoController.js";
+} from "../controllers/videocontroller.js";
 /***********routes**************/
 
 VideoRouter.get("/", getAllVideos);
